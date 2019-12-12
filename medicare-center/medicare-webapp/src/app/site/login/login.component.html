@@ -1,0 +1,75 @@
+<div class="container-fluid user-bg">
+  <div class="container">
+    <div class="row d-flex justify-content-center pt-3">
+      <div class="col-4">
+        <div class="card-login-signup card mt-5">
+          <div class="card-body">
+
+            <form action="" [formGroup]="loginForm">
+              <div class="form-row mb-3">
+                <h2>Login</h2>
+              </div>
+              <div class="row"
+                [ngClass]=" errorMsg == 'Your Signup Request is Pending' || errorMsg == 'Your Signup Request is Rejected' ? 'alert-danger rounded' : 'invisible'">
+                <div class="col my-2">
+                  <div>{{errorMsg}}</div>
+                </div>
+              </div>
+
+              
+              <div class="row"
+                [ngClass]=" signupStatus == true ? 'alert-success rounded' : 'd-none' ">
+                <div class="col my-2">
+                  <div>Signup saved succesfully..,</div>
+                </div>
+              </div>
+
+
+              <div class="row"
+                [ngClass]="errorMsg == 'Invalid Username/Password' ? 'alert-danger rounded' : 'invisible' ">
+                <div class="col my-2">
+                  <div>Invalid Username / Password</div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" name="username" id="username" [minlength]="3" [maxlength]="20"
+                    placeholder="Enter Username" formControlName="username" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col alert-danger"
+                  *ngIf="!loginForm.get('username').valid && loginForm.get('username').dirty">
+                  Minimum 3 characters are required</div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label for="pwd">Password</label>
+                  <input type="password" class="form-control" name="pwd" id="pwd" [minlength]="3" [maxlength]="20"
+                    formControlName="password" placeholder="Enter password" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col alert-danger"
+                  *ngIf="!loginForm.get('password').valid && loginForm.get('password').dirty">
+                  Minimum 3 characters are required</div>
+              </div>
+
+              <div class="form-row d-flex justify-content-between mt-3">
+                <div>
+                  <button type="button" name="submit" [disabled]="!loginForm.valid" class="btn bg-primary"
+                    (click)="loggingIn(loginForm.value)">Login</button>
+                </div>
+                <div class="text-secondary">Forget Password? <span><a routerLink="/forgetpassword"
+                      routerLinkActive="active-link">Get Password</a></span> </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

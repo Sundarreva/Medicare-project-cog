@@ -1,0 +1,232 @@
+<div class="sidebar col-auto">
+  <a class="text-light font-italic"><i class=""></i> Doctor </a>
+  <div class="text-light border mb-3"></div>
+  <a class="btn text-left font-italic text-white" (click)="serviceRequest()">
+    <img class="icon navbar-brand" src="https://img.icons8.com/color/30/000000/doctor-male--v1.png"> Service Request</a>
+  <a class="btn text-left font-italic text-white" (click)="addService()">
+    <img class="icon navbar-brand" src="https://img.icons8.com/color/30/000000/doctor-male--v1.png">Add Service</a>
+  <a class="btn text-left font-italic text-white" (click)="myService()">
+    <small><img class="icon navbar-brand" src="https://img.icons8.com/color/30/000000/doctor-male--v1.png"> </small> My
+    Service</a>
+
+
+  <div class="mt-5">
+    <button type="button" class="btn btn-labeled btn-success mx-2">
+      <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+  </div>
+</div>
+
+
+<!-- Service request -->
+
+<!-- service Request -->
+<div class="main" [ngClass]="serviceRequestFlag == true ? '' : 'd-none' ">
+  <div>
+    <h3 class="font-weight-bold m-3"> <u> Service Requests </u></h3>
+  </div>
+  <hr class="bg-dark border">
+
+  <div class="row font-weight-bold m-3 p-3"
+    [ngClass]="serviceRequestFlag == true  && (doctorRequestData == null || doctorRequestData.length == 0 )   ? 'alert-danger rounded' : 'd-none' ">
+    <div class="col my-2">
+      <div class="text-center">No Services Request are currently available to display try after some times..,</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-auto" *ngFor="let service of doctorRequestData">
+      <div class="card mt-5 col-auto">
+        <div class="card-block block-1 p-2">
+          <div class="d-flex justify-content-between mb-1">
+            <div> <span class="font-weight-bold mr-1">ServiceId:</span> {{service.requestId}}</div>
+            <div> <span class="badge badge bg-success"> {{service.approve}} </span> </div>
+          </div>
+          <div class="d-flex justify-contnet-center mb-1">
+            <div><span class="font-weight-bold mr-3">Appoinment
+                Date:</span>{{service.dateOfAppointment | date }}<span></span></div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div> <span class="font-weight-bold mr-1">Doctor: </span> {{service.doctor.userName}}</div>
+            <div> <span class="font-weight-bold mr-1">Patient: </span> {{service.patient.userName}} </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <div> <span class="font-weight-bold mr-1">Service name: </span> {{service.medicareService.medicareService}}
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between mb-1">
+            <button type="button" (click)="doctorResponseToServiceRequest(service.requestId,accept)"
+              class="btn btn-labeled btn-success mx-2">
+              <span class="btn-label"><i class="material-icons">done</i></span>Success</button>
+            <button type="button" (click)="doctorResponseToServiceRequest(service.requestId,reject)"
+              class="btn btn-labeled btn-danger">
+              <span class="btn-label"><i class="material-icons">clear</i></span>Cancel</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- my service -->
+
+<div class="main mt-5" [ngClass]="myServiceFlag == true ? '' : 'd-none' ">
+
+  <div>
+    <h3 class="font-weight-bold m-3"> <u>Your Services List </u></h3>
+  </div>
+
+  <div class="row font-weight-bold m-3 p-3"
+    [ngClass]="myServiceFlag == true  && (doctorServiceDatas.medicareList == null || doctorServiceDatas.medicareList.length == 0 )  ? 'alert-danger rounded' : 'd-none' ">
+    <div class="col my-2">
+      <div class="text-center">Currently You dont have any services available to display try to add servies..,</div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="doctorServiceDatas != null">
+    <div class="card col-md-4 m-3 rounded p-2" *ngFor="let medicare of doctorServiceDatas.medicareList">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title"> <span class="font-weight-bold mr-1"> Id: </span> {{medicare.id}}</h5>
+          </div>
+          <div>
+            <p class="card-text"> <span class="font-weight-bold mr-1"> Amount: </span> <span
+                class="badge bg-warning">{{medicare.amount}}</span> </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <h6 class="card-subtitle mb-2 text-muted"> <span class="font-weight-bold mr-1"> medicareService: </span>
+              {{medicare.medicareService}}</h6>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div><span class="font-weight-bold text-muted mt-1"> ServiceDescription: </span></div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <div>
+              <p class="card-text"><span class="font-weight-bold mr-1">-></span> {{medicare.serviceDescription}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+<!-- medicare services to add and display -->
+
+<div class="main mt-5" [ngClass]="addServiceFlag == true ? '' : 'd-none' ">
+
+  <div>
+    <h3 class="font-weight-bold m-3"> <u>Your Selected Services List </u></h3>
+  </div>
+
+  <div class="row font-weight-bold m-3 p-3"
+    [ngClass]="addServiceFlag == true  && doctorServiceDatas.medicareList == null || doctorServiceDatas.medicareList.length == 0  ? 'alert-danger rounded' : 'd-none' ">
+    <div class="col my-2">
+      <div class="text-center">you have not added any Services to display. Try "Adding services" to your profile.,</div>
+    </div>
+  </div>
+
+  
+  <div class="row" *ngIf="doctorServiceDatas != null">
+    <div class="card col-md-4 m-3 rounded p-2" *ngFor="let medicare of doctorServiceDatas.medicareList">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title"> <span class="font-weight-bold mr-1"> Id: </span> {{medicare.id}}</h5>
+          </div>
+          <div>
+            <p class="card-text"> <span class="font-weight-bold mr-1"> Amount: </span> <span
+                class="badge bg-warning">{{medicare.amount}}</span> </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <h6 class="card-subtitle mb-2 text-muted"> <span class="font-weight-bold mr-1"> medicareService: </span>
+              {{medicare.medicareService}}</h6>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div><span class="font-weight-bold text-muted mt-1"> ServiceDescription: </span></div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <div>
+              <p class="card-text"><span class="font-weight-bold mr-1">-></span> {{medicare.serviceDescription}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- services that are yet to add -->
+
+<div class="main" [ngClass]="addServiceFlag == true ? '' : 'd-none' ">
+
+  <div>
+    <h3 class="font-weight-bold m-3"> <u>Available Medicare Services List </u></h3>
+  </div>
+
+  <div class="row font-weight-bold m-3 p-3"
+    [ngClass]="addServiceFlag == true  && doctorUnselectedServices == null  ? 'alert-danger rounded' : 'd-none' ">
+    <div class="col my-2">
+      <div class="text-center">No Extra services are currently available to display try after some times..,</div>
+    </div>
+  </div>
+  
+
+  <div class="row">
+    <div class="card col-md-4 m-3 rounded p-2" *ngFor="let medicare of doctorUnselectedServices">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="card-title"> <span class="font-weight-bold mr-1"> Id: </span> {{medicare.id}}</h5>
+          </div>
+          <div>
+            <p class="card-text"> <span class="font-weight-bold mr-1"> Amount: </span> <span
+                class="badge bg-warning">{{medicare.amount}}</span> </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <h6 class="card-subtitle mb-2 text-muted"> <span class="font-weight-bold mr-1"> medicareService: </span>
+              {{medicare.medicareService}}</h6>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div><span class="font-weight-bold text-muted mt-1"> ServiceDescription: </span></div>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <div>
+            <div>
+              <p class="card-text"><span class="font-weight-bold mr-1">-></span> {{medicare.serviceDescription}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button" (click)="addMedicareToDoctor(medicare.id)" class="btn btn-success ">ADD Service</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

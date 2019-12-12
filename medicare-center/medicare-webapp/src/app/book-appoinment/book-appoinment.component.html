@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title mb-4 mb-3 rounded-top">BOOK APPOINTMENT</h2>
+
+            <form #bookAppoinmentForm="ngForm" *ngIf="medicareData != null">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="Bo_servicename">Medicare Service Name</label>
+                        <input type="text" class="form-control" name="Bo_servicename" id="Bo_servicename"
+                            #Bo_servicename="ngModel" [ngModel]="medicareData.medicareService"
+                            placeholder="Enter Medicare service" disabled required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Bo_doctor">Doctor <span class="text-danger">*</span> </label>
+                        <select name="Bo_doctor" class="form-control"
+                            [ngClass]="Bo_doctor.value == null && flagForFields == true ? 'border border-danger' : '' "
+                            id="Bo_doctor" #Bo_doctor="ngModel" (ngModel)="Bo_doctor.value" ng-disabled='disableSelect'
+                            required>
+                            <option disabled>Select a option</option>
+                            <option [ngValue]="doc" *ngFor="let doc of medicareData.doctor">{{doc.username}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="Bo_servicedescription">Medicare Service Description</label>
+                        <input type="text" class="form-control" name="Bo_servicedescription" id="Bo_servicedescription"
+                            #Bo_servicedescription="ngModel" [ngModel]="medicareData.serviceDescription"
+                            placeholder="service Description" disabled>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="Bo_amount">Amount</label>
+                        <input type="text" class="form-control" name="Bo_amount" id="Bo_amount" #Bo_amount="ngModel"
+                            [ngModel]="medicareData.amount" placeholder="amount" disabled>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="Bo_date">Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="Bo_date" id="Bo_date" #Bo_date="ngModel"
+                            (ngModel)="bookAppointment.date" placeholder="date" required>
+                    </div>
+                </div>
+
+                <!-- {{bookAppoinmentForm.value | json}} -->
+
+                <button type="button" (click)="bookAppointmentMethod(bookAppoinmentForm.value)"
+                    [disabled]="!bookAppoinmentForm.valid" class="btn btn-primary ">BOOK</button>
+            </form>
+
+
+        </div>
+    </div>
+</div>

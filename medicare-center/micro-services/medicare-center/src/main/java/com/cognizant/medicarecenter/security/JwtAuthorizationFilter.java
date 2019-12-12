@@ -1,0 +1,72 @@
+package com.cognizant.medicarecenter.security;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+
+public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
+
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+		super(authenticationManager);
+		LOGGER.debug("JWT AUTHORISATION FILTER - CONSTRUCTOR - START");
+	}
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		LOGGER.info("START");
+		String header = req.getHeader("Authorization");
+
+		if (header == null || !header.startsWith("Bearer ")) {
+			chain.doFilter(req, res);
+			return;
+		}
+		
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		chain.doFilter(req, res);
+		LOGGER.info("END");
+	}
+
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+		LOGGER.info("START");
+		String token = request.getHeader("Authorization");
+		if (token != null) {
+			Jws<Claims> jws;
+			try {
+				jws = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token.replace("Bearer ", ""));
+				String user = jws.getBody().getSubject();
+
+				if (user != null) {
+					LOGGER.info("END - USER NOT NULL - USER EXIST");
+					return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+				}
+			} catch (JwtException ex) {
+				LOGGER.info("END - EXCEPTION BLOCK");
+				return null;
+			}
+			LOGGER.info("END - TOKEN EXIST");
+			return null;
+		}
+		LOGGER.info("END - TOKEN NOT EXIST");
+		return null;
+	}
+}

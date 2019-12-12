@@ -1,0 +1,13 @@
+.card {
+    background-color: rgb(224, 220, 220);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  .card:hover {
+    transform: scale(1.1);
+    transition: all 1.5s ease;
+  }
+
+  .propreset { 
+    all: unset; 
+} 

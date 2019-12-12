@@ -1,0 +1,86 @@
+<div class="sidebar col-auto">
+    <a class="text-light font-italic"><i class=""></i> Patient LoggedIn</a>
+    <div class="text-light border mb-3"></div>
+    <a class="btn text-left font-italic text-white" (click)="getDoctors()"><i class="material-icons">local_hospital</i>
+        Doctors</a>
+    <a class="btn text-left font-italic text-white" (click)="getMedicare()"><i class="material-icons">local_hospital</i>
+        Medicares - Services</a>
+
+    <div class="mt-5">
+        <button type="button" class="btn btn-labeled btn-success mx-2">
+            <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+    </div>
+</div>
+
+<div class="main">
+    <div class="row font-weight-bold m-3 p-3"
+        [ngClass]="bookingStatus == 'booked'  ? 'alert-success rounded' : 'd-none' ">
+        <div class="col my-2">
+            <div class="text-center">Appointment booked successfully..,</div>
+        </div>
+    </div>
+</div>
+
+
+<section class="main" id="what-we-do" [ngClass]="doctorFlag == true ? 'd-none' : '' ">
+    <div class="container-fluid">
+        <h2 class="section-title mb-2 h1">Provided Medicare Services</h2>
+        <p class="text-center text-muted h5">We offer a wide range of medicare services which helps you to stay healthy.
+        </p>
+        <div class="mt-5">
+            <div class="row font-weight-bold m-3 p-3"
+                [ngClass]="medicareList == null  ? 'alert-danger rounded' : 'invisible' ">
+                <div class="col my-2">
+                    <div class="text-center">No List are currently available to display try after some times..,</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" *ngFor="let medicare of medicareList">
+                    <div class="card mt-3">
+                        <div class="card-block block-1">
+                            <h3 class="card-title">{{medicare.medicareService | uppercase}}</h3>
+                            <p class="card-text">{{medicare.serviceDescription}}</p>
+                            <a href="javascript:void(0);" title="Read more" class="read-more"
+                                (click)="bookAppointment(medicare.id)">Book Appointment<i class="material-icons">
+                                    flash_on
+                                    </i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="main mt-5">
+    <div [ngClass]="doctorFlag == true ? '' : 'd-none'">
+        <div>
+            <h3 class="font-weight-bold">Doctors</h3>
+        </div>
+        <hr>
+        <div class="row font-weight-bold m-3 p-3"
+            [ngClass]="doctorsList == null  ? 'alert-danger rounded' : 'invisible' ">
+            <div class="col my-2">
+                <div class="text-center">No List are currently available to display try after some times..,</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card col-auto m-3 rounded" *ngFor="let doctor of doctorsList">
+                <div class="card-body">
+                    <h5 class="card-title"> <span class="font-weight-bold mr-1"> Name: </span> {{doctor.userName}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"> <span class="font-weight-bold mr-1"> Contact: </span>
+                        {{doctor.contactNumber}}</h6>
+                    <p class="card-text"> <span class="font-weight-bold mr-1"> Gender: </span> {{doctor.gender}}</p>
+                    <p class="card-text"> <span class="font-weight-bold mr-1"> Age: </span> {{doctor.age}}</p>
+                    <p class="card-text"> <span class="font-weight-bold mr-1"> City: </span> {{doctor.city}}</p>
+
+                    <p class="card-text"> <span class="font-weight-bold"> <u> Service </u> </span>
+                        <span *ngFor="let mediService of doctor.medicareList"><br>
+                            ->{{mediService.medicareService}}</span> </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

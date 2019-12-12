@@ -1,0 +1,774 @@
+<div class="container-fluid user-bg">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6 mt-3">
+
+
+
+                <div class="card">
+                    <!-- card header -->
+                    <div class="card-header">
+                        <div class="form-row">
+                            <h2>Signup</h2>
+                        </div>
+                        <span>
+                            Fill (*) All are mandatory fields..,
+                        </span>
+                    </div>
+
+
+                    <!-- card body -->
+                    <div class="card-body">
+
+                        <!-- Patient Form -->
+                        <div [ngClass]=" userAs() == 'patient' ? '' : 'd-none' ">
+                            <form action="" #patientForm="ngForm" (submit)="onSubmitPatient(patientForm.value)">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_firstname">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_firstname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_firstname" id="Pat_firstname" #Pat_firstname="ngModel"
+                                            (ngModel)="Pat_firstname.value" placeholder="Enter Username" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_firstname.errors?.required && Pat_firstname.touched ? '' : 'invisible' ">
+                                            firstname is required</div>
+
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_lastname">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_lastname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_lastname" id="Pat_lastname" #Pat_lastname="ngModel"
+                                            (ngModel)="Pat_lastname.value" placeholder="Enter Lastname" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_lastname.errors?.required && Pat_lastname.touched ? '' : 'invisible' ">
+                                            lastname is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_age">Age <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Pat_age.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_age" id="Pat_age" #Pat_age="ngModel" [(ngModel)]="Pat_age.value"
+                                            placeholder="Enter Age" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_age.errors?.required && Pat_age.touched ? '' : 'invisible' ">
+                                            age
+                                            is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_dateofbirth">DOB</label>
+                                        <input type="date" class="form-control" name="Pat_dateofbirth"
+                                            id="Pat_dateofbirth" #Pat_dateofbirth="ngModel"
+                                            (ngModel)="Pat_dateofbirth.value">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_gender">Gender <span class="text-danger">*</span></label>
+                                        <select name="Pat_gender" class="form-control"
+                                            [ngClass]="Pat_gender.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            id="Pat_gender" #Pat_gender="ngModel" (ngModel)="Pat_gender.value" required>
+                                            <option *ngFor="let gen of gender">{{gen}}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_gender.errors?.required && Pat_gender.touched ? '' : 'invisible' ">
+                                            gender is required</div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_username">User Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_username.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_username" id="Pat_username" #Pat_username="ngModel"
+                                            (ngModel)="Pat_username.value" placeholder="Enter Username" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_username.errors?.required && Pat_username.touched ? '' : 'invisible' ">
+                                            username is required</div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_contactnumber">Contact Number <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Pat_contactnumber.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_contactnumber" id="Pat_contactnumber" #Pat_contactnumber="ngModel"
+                                            (ngModel)="Pat_contactnumber.value" placeholder="Enter ContactNumber"
+                                            required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_contactnumber.errors?.required && Pat_contactnumber.touched ? '' : 'invisible' ">
+                                            contact is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_altcontactnumber">Alt Contact Number</label>
+                                        <input type="number" class="form-control" name="Pat_altcontactnumber"
+                                            id="Pat_altcontactnumber" #Pat_altcontactnumber="ngModel"
+                                            (ngModel)="Pat_altcontactnumber.value"
+                                            placeholder="Enter Alt ContactNumber">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_emailid">Email id <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_emailid.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_emailid" id="Pat_emailid" #Pat_emailid="ngModel"
+                                            (ngModel)="Pat_emailid.value" placeholder="Enter Email id" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_emailid.errors?.required && Pat_emailid.touched ? '' : 'invisible' ">
+                                            emailid is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_password">Password <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control"
+                                            [ngClass]="Pat_password.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_password" id="Pat_password" #Pat_password="ngModel"
+                                            (ngModel)="Pat_password.value" placeholder="Enter Password" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_password.errors?.required && Pat_password.touched ? '' : 'invisible' ">
+                                            password is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_address1">Address line1<span
+                                                class="text-danger">*</span></label>
+                                        <textarea type="text-box" class="form-control"
+                                            [ngClass]="Pat_address1.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_address1" id="Pat_address1" #Pat_address1="ngModel"
+                                            (ngModel)="Pat_address1.value" placeholder="Enter Address"
+                                            required> </textarea>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_address1.errors?.required && Pat_address1.touched ? '' : 'invisible' ">
+                                            address is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_address2">Address line2</label>
+                                        <textarea type="text-box" class="form-control" name="Pat_address2"
+                                            id="Pat_address2" #Pat_address2="ngModel" (ngModel)="Pat_address2.value"
+                                            placeholder="Enter Address"> </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_city">City <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_city.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_city" id="Pat_city" #Pat_city="ngModel" (ngModel)="Pat_city.value"
+                                            placeholder="Enter City" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_city.errors?.required && Pat_city.touched ? '' : 'invisible' ">
+                                            city is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_state">State <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_state.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_state" id="Pat_state" #Pat_state="ngModel"
+                                            (ngModel)="Pat_state.value" placeholder="Enter State" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_state.errors?.required && Pat_state.touched ? '' : 'invisible' ">
+                                            state is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Pat_zipcode">Zip Code <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Pat_zipcode.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_zipcode" id="Pat_zipcode" #Pat_zipcode="ngModel"
+                                            (ngModel)="Pat_zipcode.value" placeholder="Enter Zip Code" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_zipcode.errors?.required && Pat_zipcode.touched ? '' : 'invisible' ">
+                                            zipcode is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">                        
+                                    <div class="form-group col-12">
+                                            <label for="Pat_securityQuestion">Security Question <span
+                                                class="text-danger mr-1">*</span></label>
+                                        <select name="Pat_securityQuestion" class="form-control"
+                                            [ngClass]="Pat_securityQuestion.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            id="Pat_securityQuestion" #Pat_securityQuestion="ngModel"
+                                            (ngModel)="Pat_securityQuestion.value" required>
+                                            <option (ngvalue) = "question" *ngFor="let question of securityQues">{{question}}?</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="Pat_securityAnswer">Security Answer<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Pat_securityAnswer.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Pat_securityAnswer" id="Pat_securityAnswer"
+                                            #Pat_securityAnswer="ngModel" (ngModel)="Pat_securityAnswer.value"
+                                            placeholder="Enter Answer" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Pat_securityAnswer.errors?.required && Pat_securityAnswer.touched ? '' : 'invisible' ">
+                                            Answer is required is required</div>
+                                    </div>
+                                </div>
+                                <!-- {{patientForm.value | json}} -->
+                                <button type="button" name="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#patientModal" (click)="onClick(patientForm.valid)">Signup</button>
+
+
+                                <!-- patient Alert -->
+                                <div class="modal fade" id="patientModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="patientModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span [ngClass]="flagForFields == true ? '' : 'd-none' ">
+                                                    Please make sure that you have entered all the (*) mandatory
+                                                    fields..,
+                                                </span>
+                                                <span [ngClass]="flagForFields == false ? '' : 'd-none' ">
+                                                    Click save to Update your details..,
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    [ngClass]="flagForFields == false ? '' : 'd-none' ">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+
+
+
+
+                        <!-- Doctor -->
+                        <div>
+                            <form action="" #doctorForm="ngForm" (submit)="onSubmitDoctor(doctorForm.value)"
+                                [ngClass]=" userAs() == 'doctor' ? '' : 'd-none' ">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_firstname">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_firstname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_firstname" id="Doc_firstname" #Doc_firstname="ngModel"
+                                            (ngModel)="Doc_firstname.value" placeholder="Enter Firstname" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_firstname.errors?.required && Doc_firstname.touched ? '' : 'invisible' ">
+                                            firstname is required</div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_lastname">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_lastname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_lastname" id="Doc_lastname" #Doc_lastname="ngModel"
+                                            (ngModel)="Doc_lastname.value" placeholder="Enter Lastname" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_lastname.errors?.required && Doc_lastname.touched ? '' : 'invisible' ">
+                                            lastname is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_age">Age <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Doc_age.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_age" id="Doc_age" #Doc_age="ngModel" (ngModel)="Doc_age.value"
+                                            placeholder="Enter Age" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_age.errors?.required && Doc_age.touched ? '' : 'invisible' ">
+                                            age
+                                            is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_dateofbirth">DOB</label>
+                                        <input type="date" class="form-control" name="Doc_dateofbirth"
+                                            id="Doc_dateofbirth" #Doc_dateofbirth="ngModel"
+                                            (ngModel)="Doc_dateofbirth.value">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_gender">Gender <span class="text-danger">*</span></label>
+                                        <select name="Doc_gender" class="form-control"
+                                            [ngClass]="Doc_gender.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            id="Doc_gender" #Doc_gender="ngModel" (ngModel)="Doc_gender.value" required>
+                                            <option *ngFor="let gen of gender">{{gen}}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_gender.errors?.required && Doc_gender.touched ? '' : 'invisible' ">
+                                            gender is required</div>
+
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_username">User Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_username.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_username" id="Doc_usertname" #Doc_username="ngModel"
+                                            (ngModel)="Doc_username.value" placeholder="Enter Username" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_username.errors?.required && Doc_username.touched ? '' : 'invisible' ">
+                                            username is required</div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_contactnumber">Contact Number <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Doc_contactnumber.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_contactnumber" id="Doc_contactnumber" #Doc_contactnumber="ngModel"
+                                            (ngModel)="Doc_contactnumber.value" placeholder="Enter ContactNumber"
+                                            required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_contactnumber.errors?.required && Doc_contactnumber.touched ? '' : 'invisible' ">
+                                            contact number is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_altcontactnumber">Alt Contact Number</label>
+                                        <input type="number" class="form-control" name="Doc_altcontactnumber"
+                                            id="Doc_altcontactnumber" #Doc_altcontactnumber="ngModel"
+                                            (ngModel)="Doc_altcontactnumber.value"
+                                            placeholder="Enter Alt ContactNumber">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_emailid">Email id <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_emailid.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_emailid" id="Doc_emailid" #Doc_emailid="ngModel"
+                                            (ngModel)="Doc_emailid.value" placeholder="Enter Email id" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_emailid.errors?.required && Doc_emailid.touched ? '' : 'invisible' ">
+                                            emailid is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_password">Password <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control"
+                                            [ngClass]="Doc_password.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_password" id="Doc_password" #Doc_password="ngModel"
+                                            (ngModel)="Doc_password.value" placeholder="Enter Password" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_password.errors?.required && Doc_password.touched ? '' : 'invisible' ">
+                                            password is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_address1">Address line1 <span
+                                                class="text-danger">*</span></label>
+                                        <textarea type="text" class="form-control"
+                                            [ngClass]="Doc_address1.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_address1" id="Doc_address1" #Doc_address1="ngModel"
+                                            (ngModel)="Doc_address1.value" placeholder="Enter Address"
+                                            required> </textarea>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_address1.errors?.required && Doc_address1.touched ? '' : 'invisible' ">
+                                            address is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_address2">Address line2</label>
+                                        <textarea type="text" class="form-control" name="Doc_address2" id="Doc_address2"
+                                            #Doc_address2="ngModel" (ngModel)="Doc_address2.value"
+                                            placeholder="Enter Address"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_city">City <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_city.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_city" id="Doc_city" #Doc_city="ngModel" (ngModel)="Doc_city.value"
+                                            placeholder="Enter City" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_city.errors?.required && Doc_city.touched ? '' : 'invisible' ">
+                                            city is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_state">State <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_state.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_state" id="Doc_state" #Doc_state="ngModel"
+                                            (ngModel)="Doc_state.value" placeholder="Enter State" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_state.errors?.required && Doc_state.touched ? '' : 'invisible' ">
+                                            state is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_zipcode">Zip Code <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Doc_zipcode.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_zipcode" id="Doc_zipcode" #Doc_zipcode="ngModel"
+                                            (ngModel)="Doc_zipcode.value" placeholder="Enter Zip Code" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_zipcode.errors?.required && Doc_zipcode.touched ? '' : 'invisible' ">
+                                            zipcode is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_degree">Degree <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_degree.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_degree" id="Doc_degree" #Doc_degree="ngModel"
+                                            (ngModel)="Doc_degree.value" placeholder="Enter Zip Code" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_degree.errors?.required && Doc_degree.touched ? '' : 'invisible' ">
+                                            degree is required</div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_speciality">Speciality <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_speciality.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_speciality" id="Doc_speciality" #Doc_speciality="ngModel"
+                                            (ngModel)="Doc_speciality.value" placeholder="Enter Speciality" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_speciality.errors?.required && Doc_speciality.touched ? '' : 'invisible' ">
+                                            Doc_speciality is required</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_workhours">Work Hours <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control"
+                                            [ngClass]="Doc_workhours.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_workhours" id="Doc_workhours" #Doc_workhours="ngModel"
+                                            (ngModel)="Doc_workhours.value" placeholder="Enter Work Hours" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_workhours.errors?.required && Doc_workhours.touched ? '' : 'invisible' ">
+                                            workhours is required</div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Doc_hospitalname">Hospital/Clinic Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Doc_hospitalname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Doc_hospitalname" id="Doc_hospitalname" #Doc_hospitalname="ngModel"
+                                            (ngModel)="Doc_hospitalname.value" placeholder="Enter Hospital Name"
+                                            required>
+                                        <div class="text-danger"
+                                            [ngClass]="Doc_hospitalname.errors?.required && Doc_hospitalname.touched ? '' : 'invisible' ">
+                                            hospital name is required</div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">                        
+                                        <div class="form-group col-12">
+                                                <label for="Doc_securityQuestion">Security Question <span
+                                                    class="text-danger mr-1">*</span></label>
+                                            <select name="Doc_securityQuestion" class="form-control"
+                                                [ngClass]="Doc_securityQuestion.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                                id="Doc_securityQuestion" #Doc_securityQuestion="ngModel"
+                                                (ngModel)="Doc_securityQuestion.value" required>
+                                                <option (ngvalue) = "question" *ngFor="let question of securityQues">{{question}}?</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-12">
+                                            <label for="Doc_securityAnswer">Security Answer<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control"
+                                                [ngClass]="Doc_securityAnswer.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                                name="Doc_securityAnswer" id="Doc_securityAnswer"
+                                                #Doc_securityAnswer="ngModel" (ngModel)="Doc_securityAnswer.value"
+                                                placeholder="Enter Answer" required>
+                                            <div class="text-danger"
+                                                [ngClass]="Doc_securityAnswer.errors?.required && Doc_securityAnswer.touched ? '' : 'invisible' ">
+                                                Answer is required is required</div>
+                                        </div>
+                                    </div>
+
+                                <!-- {{doctorForm.value | json}} -->
+                                <button type="button" name="submit" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#doctorModal" (click)="onClick(doctorForm.valid)">Signup</button>
+
+                                <!-- Alert -->
+
+                                <div class="modal fade" id="doctorModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="doctorModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span [ngClass]="flagForFields == true ? '' : 'd-none' ">
+                                                    Please make sure that you have entered all the (*) mandatory
+                                                    fields..,
+                                                </span>
+                                                <span [ngClass]="flagForFields == false ? '' : 'd-none' ">
+                                                    Click save to Update your details..,
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    [ngClass]="flagForFields == false ? '' : 'd-none' ">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+
+
+                        <!-- Admin -->
+
+                        <form action="" #adminForm="ngForm" (submit)="onSubmitAdmin(adminForm.value)"
+                            [ngClass]=" userAs() == 'admin' ? '' : 'd-none' ">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_firstname">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control"
+                                        [ngClass]="Ad_firstname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_firstname" id="Ad_firstname" #Ad_firstname="ngModel"
+                                        (ngModel)="Ad_firstname.value" placeholder="Enter firstname" required>
+                                    <div class="text-danger"
+                                        [ngClass]="Ad_firstname.errors?.required && Ad_firstname.touched ? '' : 'invisible' ">
+                                        firstname is required</div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_lastname">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control"
+                                        [ngClass]="Ad_lastname.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_lastname" id="Ad_lastname" #Ad_lastname="ngModel"
+                                        (ngModel)="Ad_lastname.value" placeholder="Enter Lastname" required>
+                                    <div class="text-danger"
+                                        [ngClass]="Ad_lastname.errors?.required && Ad_lastname.touched ? '' : 'invisible' ">
+                                        lastname is required</div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_age">Age <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control"
+                                        [ngClass]="Ad_age.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_age" id="Ad_age" #Ad_age="ngModel" (ngModel)="Ad_age.value"
+                                        placeholder="Enter Age" required>
+                                    <div class="text-danger"
+                                        [ngClass]="Ad_age.errors?.required && Ad_age.touched ? '' : 'invisible' ">age is
+                                        required</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_dateofbirth">DOB <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control"
+                                        [ngClass]="Ad_dateofbirth.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_dateofbirth" id="Ad_dateofbirth" #Ad_dateofbirth="ngModel"
+                                        (ngModel)="Ad_dateofbirth.value" required>
+                                    <div class="text-danger"
+                                        [ngClass]="Ad_firstname.errors?.required && Ad_firstname.touched ? '' : 'invisible' ">
+                                        DOB is required</div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_gender">Gender <span class="text-danger">*</span></label>
+                                    <select name="Ad_gender" class="form-control"
+                                        [ngClass]="Ad_gender.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        id="Ad_gender" #Ad_gender="ngModel" (ngModel)="Ad_gender.value"
+                                        ng-disabled='disableSelect' required>
+                                        <option disabled>Select Gender</option>
+                                        <option [ngValue]="gen" *ngFor="let gen of gender">{{gen}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_username">User Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control"
+                                        [ngClass]="Ad_username.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_username" id="Ad_username" #Ad_username="ngModel"
+                                        (ngModel)="Ad_username.value" placeholder="Enter username" required>
+                                    <div class="text-danger"
+                                        [ngClass]="Ad_username.errors?.required && Ad_username.touched ? '' : 'invisible' ">
+                                        username is required</div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_contactnumber">Contact Number <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control"
+                                        [ngClass]="Ad_contactnumber.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_contactnumber" id="Ad_contactnumber" #Ad_contactnumber="ngModel"
+                                        (ngModel)="Ad_contactnumber.value" placeholder="Enter ContactNumber" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_altcontactnumber">Alt Contact Number</label>
+                                    <input type="number" class="form-control" name="Ad_altcontactnumber"
+                                        id="Ad_altcontactnumber" #Ad_altcontactnumber="ngModel"
+                                        (ngModel)="Ad_altcontactnumber.value" placeholder="Enter Alt ContactNumber">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_emailid">Email id <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control"
+                                        [ngClass]="Ad_emailid.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_emailid" id="Ad_emailid" #Ad_emailid="ngModel"
+                                        (ngModel)="Ad_emailid.value" placeholder="Enter Email id" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="Ad_password">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control"
+                                        [ngClass]="Ad_password.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                        name="Ad_password" id="Ad_password" #Ad_password="ngModel"
+                                        (ngModel)="Ad_password.value" placeholder="Enter Password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">                        
+                                    <div class="form-group col-12">
+                                            <label for="Ad_securityQuestion">Security Question <span
+                                                class="text-danger mr-1">*</span></label>
+                                        <select name="Ad_securityQuestion" class="form-control"
+                                            [ngClass]="Ad_securityQuestion.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            id="Ad_securityQuestion" #Ad_securityQuestion="ngModel"
+                                            (ngModel)="Ad_securityQuestion.value" required>
+                                            <option (ngvalue) = "question" *ngFor="let question of securityQues">{{question}}?</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="Ad_securityAnswer">Security Answer<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control"
+                                            [ngClass]="Ad_securityAnswer.value == null && flagForFields == true ? 'border border-danger' : '' "
+                                            name="Ad_securityAnswer" id="Ad_securityAnswer"
+                                            #Ad_securityAnswer="ngModel" (ngModel)="Ad_securityAnswer.value"
+                                            placeholder="Enter Answer" required>
+                                        <div class="text-danger"
+                                            [ngClass]="Ad_securityAnswer.errors?.required && Ad_securityAnswer.touched ? '' : 'invisible' ">
+                                            Answer is required is required</div>
+                                    </div>
+                                </div>
+
+                            <!-- {{adminForm.value | json}} -->
+                            <button type="button" name="submit" class="btn btn-primary" data-toggle="modal"
+                                data-target="#adminModal" (click)="onClick(adminForm.valid)">Signup</button>
+
+
+                            <!-- Alert -->
+
+                            <div class="modal fade" id="adminModal" tabindex="-1" role="dialog"
+                                aria-labelledby="adminModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span [ngClass]="flagForFields == true ? '' : 'd-none' ">
+                                                Please make sure that you have entered all the (*) mandatory fields..,
+                                            </span>
+                                            <span [ngClass]="flagForFields == false ? '' : 'd-none' ">
+                                                Click save to Update your details..,
+                                            </span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary"
+                                                [ngClass]="flagForFields == false ? '' : 'd-none' ">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </form>
+
+
+                        <div class="row m-2"
+                            [ngClass]=" errorMsg == 'User Name has already registred try new name' ? 'alert-danger rounded' : 'invisible'">
+                            <div class="col my-2">
+                                <div>{{errorMsg}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
